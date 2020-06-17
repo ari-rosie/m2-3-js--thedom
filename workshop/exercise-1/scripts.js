@@ -6,6 +6,7 @@ const p = document.createElement("P");
 
 const imgRobin = document.createElement("IMG");
 
+//MAIN CONTAINER
 document.body.appendChild(main);
 
 // FIRST SINGLE ELEMENTS OF THE PAGE
