@@ -45,5 +45,18 @@ racers.forEach(function(racer) {
 });
 
 
+racers.forEach(function(racer) {
+    let hopInterval = Math.floor(Math.random() * 5000);
+    racer.hopDistance = Math.floor(Math.random() * 300);
+    setInterval(function() {
+        let racerNum = racers.indexOf(racer) + 1;
+        let frog = document.querySelector(`#frog${racerNum}`);
+        
+        frog.style.transform = `translate(${racer.hopDistance}%)`;
+        racer.hopDistance += racer.hopDistance;
+    }, hopInterval);
+});
+
+
 
 
