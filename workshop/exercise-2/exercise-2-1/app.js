@@ -1,6 +1,6 @@
 // Preset values
 const FROGS = 3;
-
+let raceEnd = false;
 
 //creating the track field
 const track = document.querySelector('#track');
@@ -44,23 +44,33 @@ racers.forEach(function(racer) {
 
 });
 
-const racingFrog = function(racerFrog) {
-    let racerNum = racers.indexOf(racerFrog) + 1;
-    let frog = document.querySelector(`#frog${racerNum}`);
+
+//makes the frogs hop and stop when there is a winner
+const racingFrog = function (racerFrog) {
+    const race = setInterval(function() {
+        let racerNum = racers.indexOf(racerFrog) + 1;
+        let frog = document.querySelector(`#frog${racerNum}`);
+        
+        if (raceEnd)
+            clearInterval(race);
+        else
+            frog.style.left = `${racerFrog.progress}%`;
+            if (racerFrog.progress >= 100) {
+                raceEnd = true;
+            } else
+                racerFrog.progress += racerFrog.hopDistance;
+    }, racerFrog.hopInterval);
     
-    frog.style.left = `${racerFrog.progress}%`;
-    if (racerFrog.progress >= 100) {
-    //    clearInterval(racingFrog);
-    } else
-        racerFrog.progress += racerFrog.hopDistance;  
 }
 
+//calls the racing function for each frog
 racers.forEach(function(racer) {
     racer.hopInterval = Math.floor(Math.random() * 5000);
     racer.hopDistance = Math.floor(Math.random() * 30);
     racer.progress = racer.hopDistance;
 
-    setInterval(function() {racingFrog(racer)}, racer.hopInterval);
+    racingFrog(racer);
+    
 });
 
 
