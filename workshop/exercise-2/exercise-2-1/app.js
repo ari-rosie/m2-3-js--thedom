@@ -44,19 +44,24 @@ racers.forEach(function(racer) {
 
 });
 
+const racingFrog = function(racerFrog) {
+    let racerNum = racers.indexOf(racerFrog) + 1;
+    let frog = document.querySelector(`#frog${racerNum}`);
+    
+    frog.style.left = `${racerFrog.progress}%`;
+    if (racerFrog.progress >= 100) {
+    //    clearInterval(racingFrog);
+    } else
+        racerFrog.progress += racerFrog.hopDistance;  
+}
 
 racers.forEach(function(racer) {
-    let hopInterval = Math.floor(Math.random() * 5000);
-    racer.hopDistance = Math.floor(Math.random() * 300);
-    setInterval(function() {
-        let racerNum = racers.indexOf(racer) + 1;
-        let frog = document.querySelector(`#frog${racerNum}`);
-        
-        frog.style.transform = `translate(${racer.hopDistance}%)`;
-        racer.hopDistance += racer.hopDistance;
-    }, hopInterval);
-});
+    racer.hopInterval = Math.floor(Math.random() * 5000);
+    racer.hopDistance = Math.floor(Math.random() * 30);
+    racer.progress = racer.hopDistance;
 
+    setInterval(function() {racingFrog(racer)}, racer.hopInterval);
+});
 
 
 
